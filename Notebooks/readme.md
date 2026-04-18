@@ -118,8 +118,4 @@ This project demonstrates how to build a **scalable data pipeline** and convert 
 
 ---
 
-## 👤 Author
 
-**Gayathri7171**
-
----
