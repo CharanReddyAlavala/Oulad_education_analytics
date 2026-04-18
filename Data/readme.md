@@ -1,95 +1,136 @@
-📂 Raw Dataset – Student Performance Data
-📌 Overview
+# 📂 Raw Data – Student Performance Dataset
 
-This folder contains the raw input datasets (CSV files) used in the data pipeline.
-These files are directly ingested into the Bronze Layer in Databricks without any transformation.
+## 📌 Overview
 
-📁 Files Included
-1. studentInfo.csv
+This directory contains the **raw CSV datasets** used as input for the data pipeline.
+These files are ingested into the **Bronze layer** without any transformations.
 
-Contains demographic and academic information about students.
+---
 
-Key Columns:
+## 📁 Dataset Files
 
-id_student – Unique student ID
-gender – Gender of student
-region – Geographic region
-highest_education – Education level
-imd_band – Socio-economic band
-age_band – Age group
-num_of_prev_attempts – Previous attempts
-studied_credits – Credits taken
-disability – Disability status
-final_result – Final outcome (Pass/Fail/Withdrawn)
-2. studentRegistration.csv
+### 🔹 1. studentInfo.csv
 
-Tracks student enrollment details.
+**Description:** Student demographic and final result data
 
-Key Columns:
+**Columns:**
 
-id_student
-code_module – Course ID
-code_presentation – Session
-date_registration
-date_unregistration
-3. courses.csv
+* `id_student` – Unique student ID
+* `gender`, `age_band`, `region`
+* `highest_education`, `imd_band`
+* `num_of_prev_attempts`, `studied_credits`
+* `disability`
+* `final_result` (Pass / Fail / Withdrawn)
 
-Contains course metadata.
+---
 
-Key Columns:
+### 🔹 2. studentRegistration.csv
 
-code_module
-code_presentation
-module_presentation_length
-4. assessments.csv
+**Description:** Student course enrollment details
 
-Defines assessments for each course.
+**Columns:**
 
-Key Columns:
+* `id_student`
+* `code_module` – Course
+* `code_presentation` – Session
+* `date_registration`, `date_unregistration`
 
-id_assessment
-code_module
-code_presentation
-assessment_type
-date
-weight
-5. studentAssessment.csv
+---
 
-Stores student scores in assessments.
+### 🔹 3. courses.csv
 
-Key Columns:
+**Description:** Course metadata
 
-id_assessment
-id_student
-date_submitted
-is_banked
-score
-6. vle.csv
+**Columns:**
 
-Contains Virtual Learning Environment (VLE) activity data.
+* `code_module`
+* `code_presentation`
+* `module_presentation_length`
 
-Key Columns:
+---
 
-id_site
-code_module
-code_presentation
-activity_type
-week_from
-week_to
-🔄 Data Flow
-Raw CSV Files → Bronze Layer → Silver Layer → Gold Layer → Dashboard
-⚠️ Notes
-Data is raw and uncleaned
-May contain:
-Null values
-Duplicates
-Inconsistent formats
-Cleaning and transformations are handled in the Silver Layer
-🎯 Purpose
+### 🔹 4. assessments.csv
 
-This dataset is used to:
+**Description:** Assessment structure per course
 
-Analyze student performance
-Identify at-risk students
-Evaluate course effectiveness
-Build dashboards and insights
+**Columns:**
+
+* `id_assessment`
+* `code_module`, `code_presentation`
+* `assessment_type`
+* `date`, `weight`
+
+---
+
+### 🔹 5. studentAssessment.csv
+
+**Description:** Student scores in assessments
+
+**Columns:**
+
+* `id_student`, `id_assessment`
+* `date_submitted`
+* `score`, `is_banked`
+
+---
+
+### 🔹 6. vle.csv
+
+**Description:** Student interaction with learning platform (VLE)
+
+**Columns:**
+
+* `id_site`
+* `code_module`, `code_presentation`
+* `activity_type`
+* `week_from`, `week_to`
+
+---
+
+## 🔗 Data Relationships (Important)
+
+```id="rel123"
+studentInfo          → id_student
+studentRegistration  → id_student + course
+studentAssessment    → id_student + id_assessment
+assessments          → id_assessment
+courses              → code_module + code_presentation
+vle                  → code_module + code_presentation
+```
+
+---
+
+## 🔄 Data Flow
+
+```id="flow456"
+Raw Data → Bronze Layer → Silver Layer → Gold Layer → Dashboard
+```
+
+---
+
+## ⚠️ Data Quality Notes
+
+* Data is **unprocessed (raw)**
+* Possible issues:
+
+  * Missing values
+  * Duplicate records
+  * Inconsistent formats
+
+👉 These are handled in the **Silver layer**
+
+---
+
+## 🎯 Purpose of Dataset
+
+This data is used to:
+
+* Analyze student performance
+* Calculate pass & dropout rates
+* Identify at-risk students
+* Study learning behavior (VLE)
+* Build dashboards and insights
+
+---
+
+
