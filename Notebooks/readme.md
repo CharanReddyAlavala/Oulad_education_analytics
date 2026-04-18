@@ -1,98 +1,125 @@
-Mental Health Analysis Pipeline (Bronze–Silver–Gold Architecture)
-📌 Project Overview
+# 📊 Student Performance Data Pipeline (Databricks)
 
-This project builds a data engineering + machine learning pipeline to analyze mental health conditions (stress, anxiety, depression) using text and structured datasets.
+## 🚀 Overview
 
-The pipeline follows the Bronze–Silver–Gold architecture, transforming raw data into meaningful insights and preparing it for ML models like BERT and traditional classifiers     
-project-folder/
+This project implements an **end-to-end data pipeline using Databricks** following the **Medallion Architecture (Bronze → Silver → Gold)**.
+
+The pipeline processes student data to generate **business insights and dashboards** such as:
+
+* Course performance
+* Pass & dropout rates
+* Risk analysis
+* Top-performing students
+
+---
+
+## 🏗️ Architecture
+
+```
+Bronze Layer → Silver Layer → Gold Layer → Dashboard
+```
+
+### 🥉 Bronze Layer (`bronze_layer.ipynb`)
+
+* Ingests raw CSV data
+* Stores data in Delta tables
+* No transformations (raw format)
+
+### 🥈 Silver Layer (`silver_layer.ipynb`)
+
+* Cleans and transforms data
+* Handles nulls and duplicates
+* Joins multiple datasets
+* Creates enriched dataset:
+  `student_enriched`
+
+### 🥇 Gold Layer (`gold_layer.ipynb`)
+
+* Creates business-level aggregated tables:
+
+  * `course_performance`
+  * `pass_rate`
+  * `dropout_rate`
+  * `risk_distribution`
+  * `top_students`
+  * `at_risk_students`
+
+---
+
+## 📂 Project Structure
+
+```
+Notebooks/
 │
-├── bronze_layer.ipynb    # Raw data ingestion from Kaggle datasets
-├── silver_layer.ipynb    # Data cleaning & preprocessing
-├── gold_layer.ipynb      # Feature engineering & analysis
-│
-└── README.md             # Project documentation
+├── bronze_layer.ipynb     # Raw data ingestion
+├── silver_layer.ipynb     # Data cleaning & transformation
+├── gold_layer.ipynb       # Business metrics & KPIs
+└── readme.md              # Project documentation
+```
 
+---
 
+## 📊 Key Features
 
-⚙️ Technologies Used
-Programming Language: Python 🐍
-Libraries & Tools:
-Pandas, NumPy
-Scikit-learn
-PyTorch
-Transformers (BERT)
-Environment: Jupyter Notebook
-📊 Dataset
-Source: Kaggle Mental Health Datasets
-Format: CSV-based structured and text data
-Contains:
-User text inputs / statements
-Labels for stress, anxiety, depression
-Behavioral or survey-based features
-🔄 Pipeline Explanation
-🥉 Bronze Layer – Raw Data
-Loads dataset directly from source (Kaggle)
-Stores original data without modifications
-Performs basic inspection
+✔ Medallion Architecture implementation
+✔ End-to-end data pipeline
+✔ Delta Lake storage
+✔ Data cleaning & transformation
+✔ Business KPI generation
+✔ Dashboard-ready datasets
 
-👉 Output: Raw dataset
+---
 
-🥈 Silver Layer – Data Cleaning & Preprocessing
-Handles missing values
-Removes duplicates
-Text preprocessing:
-Tokenization
-Lowercasing
-Stopword removal
-Data normalization and formatting
+## 📈 KPIs Generated (Gold Layer)
 
-👉 Output: Cleaned and structured dataset
+| KPI                | Description                |
+| ------------------ | -------------------------- |
+| Course Performance | Avg score, total students  |
+| Pass Rate          | % of students passed       |
+| Dropout Rate       | % of students withdrawn    |
+| Risk Distribution  | High vs Low risk students  |
+| Top Students       | Top 5 per course           |
+| At Risk Students   | Students needing attention |
 
-🥇 Gold Layer – Feature Engineering & Insights
-Feature extraction using:
-TF-IDF / embeddings
-BERT-based representations
-Data aggregation and analysis
-Prepares dataset for ML models
-Generates insights on:
-Stress levels
-Anxiety patterns
-Depression indicators
+---
 
-👉 Output: Model-ready dataset & insights
+## 📊 Dashboard Insights
 
-🤖 Machine Learning Approach
-Traditional Models:
-Logistic Regression
-Random Forest
-Deep Learning:
-BERT (Bidirectional Encoder Representations from Transformers)
-🔍 Why BERT?
-Understands context of words
-Captures semantic meaning
-Improves accuracy for text classification
-🚀 How to Run
-Clone the repository:
-git clone <your-repo-link>
-Navigate to the project:
-cd project-folder
-Open Jupyter Notebook:
-jupyter notebook
-Run notebooks in order:
-bronze_layer.ipynb
-silver_layer.ipynb
-gold_layer.ipynb
-📈 Key Outcomes
-Clean and structured mental health dataset
-Insights into stress, anxiety, and depression trends
-Data prepared for ML and deep learning models
-Scalable pipeline for real-world data engineering
-💡 Use Cases
-Mental health monitoring systems
-AI-based counseling tools
-Sentiment and emotion analysis
-Healthcare analytics
-📌 Future Enhancements
-Deploy model using Flask / Node.js
-Build real-time prediction system
-Integrate dashboard (Power BI / Streamlit)
+The Gold layer supports dashboards with:
+
+* KPI cards (Total Students, Avg Score, Pass %, Dropout %)
+* Bar charts (Course performance)
+* Stacked charts (Pass vs Dropout)
+* Pie chart (Risk distribution)
+* Tables (Top students, At-risk students)
+
+---
+
+## 🛠️ Technologies Used
+
+* Databricks (SQL + PySpark)
+* Delta Lake
+* SQL Warehouse (Free Edition)
+* Medallion Architecture
+
+---
+
+## ⚠️ Notes
+
+* Free Databricks version supports **SQL Warehouse only**
+* Gold layer is implemented using **SQL for dashboard compatibility**
+* Avoid using `count()` without alias (use `student_count`)
+
+---
+
+## 🎯 Conclusion
+
+This project demonstrates how to build a **scalable data pipeline** and convert raw data into **actionable business insights** using Databricks.
+
+---
+
+## 👤 Author
+
+**Gayathri7171**
+
+---
